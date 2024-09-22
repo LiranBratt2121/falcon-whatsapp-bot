@@ -1,18 +1,8 @@
-import Sticker, { StickerTypes } from "wa-sticker-formatter";
-import { Client, Message, MessageMedia } from "whatsapp-web.js";
+import { Message, MessageMedia } from "whatsapp-web.js";
 import { getQuotedMessage } from "../utils/quotes";
 import { replyMessage } from "../utils/send";
+import { stringToImageBase64 } from "../utils/stringToImageBase64";
 
-const createSticker = (image: string): Sticker => {
-    return new Sticker(image)
-        .setPack("BOT")
-        .setAuthor("BOT")
-        .setType(StickerTypes.FULL)
-        .setCategories(['😀'])
-        .setID('1943')
-        .setBackground('#000000')
-        .setQuality(50)
-}
 
 export const handleCreateSticker = async (message: Message): Promise<void> => {
     const quotedMessage = await getQuotedMessage(message);
@@ -24,8 +14,21 @@ export const handleCreateSticker = async (message: Message): Promise<void> => {
 
     const isImg = quotedMessage.hasMedia;
 
+    let media: MessageMedia;
+
     if (isImg) {
-        const media = await quotedMessage.downloadMedia();
-        quotedMessage.reply(media, message.from, { sendMediaAsSticker: true });
+        media = await quotedMessage.downloadMedia();
+    } else {
+        const base64Image = stringToImageBase64(quotedMessage.body);
+        const base64Data = base64Image.replace(/^data:image\/svg\+xml;base64,/, '');
+        media = new MessageMedia("image/svg+xml", base64Data, "image.svg", base64Data.length);
     }
-}
+
+    console.log(media);  
+
+    try {
+        replyMessage(message, media, { sendMediaAsSticker: true });
+    }catch(error) {
+        console.log(error);
+    }
+};
