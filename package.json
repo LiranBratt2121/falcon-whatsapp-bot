@@ -1,0 +1,26 @@
+{
+  "name": "falcon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts",
+    "start:watch": "nodemon ./src/index.ts -e ts,json --exec 'ts-node ./src/index.ts'"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "@types/qrcode-terminal": "^0.12.2",
+    "nodemon": "^3.1.7",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "qrcode-terminal": "^0.12.0",
+    "wa-sticker-formatter": "^4.4.4",
+    "web.js": "^1.0.1",
+    "whatsapp": "^0.0.5-Alpha",
+    "whatsapp-web.js": "^1.26.0"
+  }
+}
