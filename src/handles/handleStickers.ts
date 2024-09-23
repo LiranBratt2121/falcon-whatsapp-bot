@@ -5,7 +5,15 @@ import { stringToImageBase64 } from "../utils/stringToImageBase64";
 
 
 export const handleCreateSticker = async (message: Message): Promise<void> => {
-    const quotedMessage = await getQuotedMessage(message);
+    let quotedMessage: Message | null;
+    try {
+        quotedMessage = await getQuotedMessage(message);
+    }catch(error) {
+        replyMessage(message, "Something happend " + error)
+        console.log("Something happend " + error);
+        return
+    }
+        
 
     if (!quotedMessage) {
         replyMessage(message, "Quote a message before using !sticker");
@@ -23,8 +31,6 @@ export const handleCreateSticker = async (message: Message): Promise<void> => {
         const base64Data = base64Image.replace(/^data:image\/svg\+xml;base64,/, '');
         media = new MessageMedia("image/svg+xml", base64Data, "image.svg", base64Data.length);
     }
-
-    console.log(media);  
 
     try {
         replyMessage(message, media, { sendMediaAsSticker: true });
