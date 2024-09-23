@@ -21,9 +21,8 @@ export const handleCreateSticker = async (message: Message): Promise<void> => {
     }
 
     const isImg = quotedMessage.hasMedia;
-
     let media: MessageMedia;
-
+    
     if (isImg) {
         media = await quotedMessage.downloadMedia();
     } else {
@@ -35,6 +34,7 @@ export const handleCreateSticker = async (message: Message): Promise<void> => {
     try {
         replyMessage(message, media, { sendMediaAsSticker: true });
     }catch(error) {
+        replyMessage(message, "Error while create the sticker " + error)
         console.log(error);
     }
 };
