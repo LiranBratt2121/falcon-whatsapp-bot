@@ -17,7 +17,7 @@ client.once('ready', () => {
 })
 
 client.on("message_create", (message) => {
-    switch (message.body) {
+    switch (message.body.trim()) {
         case '!ping':
             handlePing(message);
             break;
