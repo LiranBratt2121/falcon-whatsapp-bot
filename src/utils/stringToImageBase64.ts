@@ -2,25 +2,42 @@ export const stringToImageBase64 = (inputText: string): string => {
   const maxWidth = 300;
   const lineHeight = 30;
   const fontSize = 24;
-  const maxCharsPerLine = Math.floor(maxWidth / (fontSize * 0.6)); 
+  const maxCharsPerLine = Math.floor(maxWidth / (fontSize * 0.6));
 
-  const lines = [];
-  let currentLine = '';
-  const words = inputText.split(' ');
+  const wrapText = (text: string): string[] => {
+    const words = text.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
 
-  for (const word of words) {
-    if ((currentLine + word).length <= maxCharsPerLine) {
-      currentLine += (currentLine ? ' ' : '') + word;
-    } else {
+    words.forEach(word => {
+      if (currentLine.length + word.length + 1 <= maxCharsPerLine) {
+        currentLine += (currentLine ? ' ' : '') + word;
+      } else {
+        if (currentLine) {
+          lines.push(currentLine);
+        }
+        // If the word is longer than maxCharsPerLine, split it
+        if (word.length > maxCharsPerLine) {
+          let remainingWord = word;
+          while (remainingWord.length > 0) {
+            lines.push(remainingWord.slice(0, maxCharsPerLine));
+            remainingWord = remainingWord.slice(maxCharsPerLine);
+          }
+        } else {
+          currentLine = word;
+        }
+      }
+    });
+
+    if (currentLine) {
       lines.push(currentLine);
-      currentLine = word;
     }
-  }
-  if (currentLine) {
-    lines.push(currentLine);
-  }
 
-  const height = Math.max(100, lines.length * lineHeight + 20); 
+    return lines;
+  };
+
+  const lines = wrapText(inputText);
+  const height = Math.max(100, lines.length * lineHeight + 20);
 
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${maxWidth}" height="${height}">
