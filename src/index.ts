@@ -2,9 +2,11 @@ import { Client, LocalAuth, Message, MessageAck } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import { handleDefault, handlePing } from './handles/handleTests';
 import { handleCreateSticker } from './handles/handleStickers';
+import { handleMetionEveryone } from './handles/handleMentions';
 
 const client = new Client({
-    authStrategy: new LocalAuth()
+    authStrategy: new LocalAuth(),
+    ffmpegPath: 'ffmpeg/bin/ffmpeg.exe'
 });
 
 
@@ -23,6 +25,9 @@ client.on("message_create", (message) => {
             break;
         case '!sticker':
             handleCreateSticker(message);
+            break;
+        case '!everyone':
+            handleMetionEveryone(message);
             break;
         default:
             handleDefault(message);
