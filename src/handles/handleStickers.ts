@@ -9,7 +9,7 @@ export const handleCreateSticker = async (message: Message): Promise<void> => {
     try {
         quotedMessage = await getQuotedMessage(message);
     }catch(error) {
-        replyMessage(message, "Something happend " + error)
+        replyMessage(message, "Something happend ")
         console.log("Something happend " + error);
         return
     }
