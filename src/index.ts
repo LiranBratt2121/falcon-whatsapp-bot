@@ -2,7 +2,9 @@ import { Client, LocalAuth, Message, MessageAck } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import { handleDefault, handlePing } from './handles/handleTests';
 import { handleCreateSticker } from './handles/handleStickers';
-import { handleMetionEveryone } from './handles/handleMentions';
+import { handleMentionEveryone } from './handles/handleMentions';
+import { handleNotifyMe } from './handles/handleNotifyMe';
+import { handleAddCustomReply, handleCustomReply } from './handles/handleCustomReply';
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -19,18 +21,35 @@ client.once('ready', () => {
 })
 
 client.on("message_create", (message) => {
-    switch (message.body.trim()) {
-        case '!ping':
-            handlePing(message);
-            break;
-        case '!sticker':
-            handleCreateSticker(message);
-            break;
-        case '!everyone':
-            handleMetionEveryone(message);
-            break;
-        default:
-            handleDefault(message);
+    const command = message.body.trim().split(' ')[0];
+
+    try {
+        switch (command) {
+            case '!ping':
+                handlePing(message);
+                break;
+            case '!sticker':
+                handleCreateSticker(message);
+                break;
+            case '!everyone':
+                // handleMentionEveryone(message);
+                break;
+            case "!notify-me": 
+                handleNotifyMe(message);
+                break;
+            case "!custom-reply":
+                handleAddCustomReply(message);
+                break;
+            default:
+                if (handleDefault(message)){
+                    break;
+                }
+                
+                handleCustomReply(message);
+        }
+
+    } catch (error) {
+        console.log("ERROR: ", error)
     }
 })
 
