@@ -2,9 +2,9 @@ import { Client, LocalAuth, Message, MessageAck } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import { handleDefault, handlePing } from './handles/handleTests';
 import { handleCreateSticker } from './handles/handleStickers';
-import { handleMentionEveryone } from './handles/handleMentions';
 import { handleNotifyMe } from './handles/handleNotifyMe';
 import { handleAddCustomReply, handleCustomReply } from './handles/handleCustomReply';
+import { handleMentionEveryone } from './handles/handleMentions';
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -32,7 +32,7 @@ client.on("message_create", (message) => {
                 handleCreateSticker(message);
                 break;
             case '!everyone':
-                // handleMentionEveryone(message);
+                handleMentionEveryone(message);
                 break;
             case "!notify-me": 
                 handleNotifyMe(message);
