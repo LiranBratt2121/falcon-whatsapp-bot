@@ -4,7 +4,7 @@ import { replyMessage } from "../utils/send";
 
 class ChatContainer {
     private actuatorWords: Record<ActionWord, ActionWordContent>; 
-    private groupId: string;
+    private groupId: ChatId;
 
     constructor(groupId: ChatId) {
         this.groupId = groupId;
@@ -31,11 +31,11 @@ class ChatsContainer {
         this.chats = {};
     }
 
-    private exists(groupId: string) {
+    private exists(groupId: ChatId) {
         return this.chats.hasOwnProperty(groupId);
     }
 
-    public addGroup(groupId: string) {
+    public addGroup(groupId: ChatId) {
         if (this.exists(groupId)) {
             console.log("Group has already been added!");
             return;
@@ -55,7 +55,7 @@ class ChatsContainer {
         return chatId;
     }
 
-    public wordInActionWords(actionWords: Record<ActionWord, ActionWordContent>, messageContent: string) {
+    public wordInActionWords(actionWords: Record<ActionWord, ActionWordContent>, messageContent: string): [ActionWord | null, boolean] {
         for (const actionWord in actionWords) {
             if (messageContent === actionWord) {
                 return [actionWord, true];
