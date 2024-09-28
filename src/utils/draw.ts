@@ -1,7 +1,7 @@
 import { createCanvas, CanvasRenderingContext2D, Canvas } from 'canvas'
-import { ImageTypes, Line, Point, TicTacToeGameElement } from '../types';
-import { drawTicTacToeGameElement, drawTicTacToeGrid } from './ticTacToe/drawTicTacToe';
-import { sendPathAsSticker } from '../send';
+import { ImageTypes, Line, Point, TicTacToeGameElement } from './types';
+import { drawTicTacToeGameElement, drawTicTacToeGrid } from '../games/ticTacToe/drawTicTacToe';
+import { sendPathAsSticker } from './send';
 import { Message } from 'whatsapp-web.js';
 
 export const drawLine = (ctx: CanvasRenderingContext2D, p1: Point, p2: Point, color?: string, lineWidth?: number) => {

@@ -1,6 +1,6 @@
 import { Canvas, CanvasRenderingContext2D } from "canvas";
-import { Line, TickTacToeGridIndex, TicTacToeGameElement } from "../../types";
-import { drawLine, drawText } from "../draw";
+import { Line, TickTacToeGridIndex, TicTacToeGameElement } from "../../utils/types";
+import { drawLine, drawText } from "../../utils/draw";
 
 export const drawTicTacToeGrid = (canvas: Canvas, ctx: CanvasRenderingContext2D, horizontalLines: Array<Line>, verticalLines: Array<Line>) => {
     const interval = { horizontal: Math.floor(canvas.width / 3), vertical: Math.floor(canvas.height / 3) };
