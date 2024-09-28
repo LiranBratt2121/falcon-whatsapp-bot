@@ -15,6 +15,7 @@ export type TimeContainer = {
 export type ChatId = string;
 export type ActionWord = string;
 export type ActionWordContent = string;
+
 export type Point = [number, number];
 export type Line = [Point, Point]
 
@@ -24,3 +25,8 @@ export enum TicTacToeGameElement {
 }
 
 export type TickTacToeGridIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+
+export enum ImageTypes {
+    PNG = "png",
+    SVG = "svg+xml"
+} 
