@@ -15,3 +15,6 @@ export type TimeContainer = {
 export type ChatId = string;
 export type ActionWord = string;
 export type ActionWordContent = string;
+export type Point = [number, number];
+export type Line = [Point, Point]
+
