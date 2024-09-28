@@ -60,5 +60,6 @@ export const handleNotifyMe = async (message: Message) => {
     const fullTime = `${parsedtimeToWait} ${timeContainer.timeTitle}`
 
     replyMessage(message, `Notifying you in ${fullTime}`)
+    // @ts-ignore
     sendDelyedReply(timeContainer.timeConvention, parsedtimeToWait, message, `@${contact.user} ${fullTime} is up`, { mentions: [serializedContact]})
 }

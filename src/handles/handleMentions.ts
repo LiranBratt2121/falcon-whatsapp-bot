@@ -32,9 +32,11 @@ export const handleMentionEveryone = async (message: Message) => {
         text += `@${participant.id.user} `;
     }
 
+    // @ts-ignore
     await chat.sendMessage(text, { mentions });
 } 
 
 const isAdmin = (message: Message, listOfAdmins: Array<GroupParticipant>) => {
+    // @ts-ignore
     return listOfAdmins.some((admin) => admin.id._serialized === message.id.participant)
 }
