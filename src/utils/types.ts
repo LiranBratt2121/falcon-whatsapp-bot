@@ -18,3 +18,9 @@ export type ActionWordContent = string;
 export type Point = [number, number];
 export type Line = [Point, Point]
 
+export enum TicTacToeGameElement {
+    X = 'X',
+    O = 'O'
+}
+
+export type TickTacToeGridIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
